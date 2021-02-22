@@ -1,0 +1,18 @@
+{
+  "name": "guiaperguntas",
+  "version": "1.0.0",
+  "description": "Plataforma de Perguntas e respostas",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "author": "Vinicius",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.5.0"
+  }
+}

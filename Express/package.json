@@ -1,11 +1,14 @@
 {
-  "name": "express",
+  "name": "iniciando",
   "version": "1.0.0",
   "description": "Iniciando Com Express",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm start"
   },
   "author": "Vinicius Batista",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
