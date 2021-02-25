@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 
 const connection = require("./database/database");
 
+const Pergunta = require("./database/Pergunta");
+
 // Database
 
 connection
@@ -28,8 +30,14 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-
-    res.render("index.ejs")
+    Pergunta.findAll({ raw: true, order: [
+        ['id', 'DESC'] // ASC = Crescente // DESC = Decrescente
+    ]}).then(perguntas => {
+        res.render("index.ejs", {
+            perguntas: perguntas
+        });
+    });
+    // SELECT * FROM PERGUNTA;
 });
 
 app.get("/perguntar", (req, res) => {
@@ -42,7 +50,34 @@ app.post("/salvarPergunta", (req, res) => {
 
     var desc = req.body.Descricao;
 
-    res.send(`Título: ${titulo} <br> Descrição: ${desc}`)
+    Pergunta.create({
+        titulo: titulo,
+        descricao: desc
+    })
+    .then(() => {
+        res.redirect("/")
+    })
+    .catch(() => {
+        alert("Erro na Sua Pergunta !")
+    })
+})
+
+app.get("/pergunta/:id", (req, res) => {
+    var id = req.params.id;
+
+    Pergunta.findOne({
+        where: {
+            id: id
+        }
+    }).then(pergunta => {
+        if (pergunta != undefined) {
+            res.render("pergunta", {
+                pergunta: pergunta
+            })
+        } else {
+            res.redirect("/")
+        }   
+    })
 })
 
 app.listen(4000, () => {
